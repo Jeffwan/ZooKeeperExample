@@ -21,8 +21,7 @@ public class GetChildrenAPISync implements Watcher {
 		String path = "/zk-book";
 		
 		zookeeper = new ZooKeeper(Constants.connectionString, Constants.timeout, new GetChildrenAPISync());
-		
-		
+
 		zookeeper.create(path, "".getBytes(), Ids.OPEN_ACL_UNSAFE, CreateMode.PERSISTENT);
 		
 		zookeeper.create(path + "/c1", "".getBytes(), Ids.OPEN_ACL_UNSAFE, CreateMode.EPHEMERAL);
