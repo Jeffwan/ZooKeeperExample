@@ -7,12 +7,16 @@ import org.apache.curator.retry.ExponentialBackoffRetry;
 
 import com.diorsding.zookeeper.constants.Constants;
 
-public class CreateSession {
+public class CreateSessionFluent {
 	
 	public static void main(String[] args) throws Exception {
-		RetryPolicy retryPolicy = new ExponentialBackoffRetry(1000, 3);
-		CuratorFramework client = CuratorFrameworkFactory.newClient(Constants.connectionString, 
-				Constants.timeout, Constants.timeout, retryPolicy);
+		RetryPolicy retryPolicy = new ExponentialBackoffRetry(Constants.timeout, 3);
+		
+		CuratorFramework client = CuratorFrameworkFactory.builder()
+				.connectString(Constants.connectionString)
+				.sessionTimeoutMs(Constants.timeout)
+				.retryPolicy(retryPolicy)
+				.build();
 		
 		client.start();
 		Thread.sleep(Integer.MAX_VALUE);
