@@ -13,6 +13,10 @@ local.properties
 # Eclipse Core
 .project
 
+# Intellij IDEA
+.idea/
+zookeeper.iml
+
 # External tool builders
 .externalToolBuilders/
 
