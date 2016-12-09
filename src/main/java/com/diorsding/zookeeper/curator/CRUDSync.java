@@ -8,7 +8,7 @@ import org.apache.zookeeper.data.Stat;
 
 import com.diorsding.zookeeper.constants.Constants;
 
-public class SetData {
+public class CRUDSync {
 
 	static String path = "/zk-book/c1";
 	static CuratorFramework client = CuratorFrameworkFactory.builder()
@@ -19,21 +19,31 @@ public class SetData {
 	
 	public static void main(String[] args) throws Exception {
 		client.start();
+		
 		client.create()
 			.creatingParentsIfNeeded()
 			.withMode(CreateMode.EPHEMERAL)
 			.forPath(path, "init".getBytes());
 		
 		Stat stat = new Stat();
-		
 		client.getData().storingStatIn(stat).forPath(path);
-		System.out.println("Success set node for : " + path + ", new version: " 
-				+ client.setData().withVersion(stat.getVersion()).forPath(path).getVersion());
-		
+
+		System.out.println("[Version: " + stat.getVersion() + ", zxid: " + stat.getCzxid() + " ]");
+		System.out.println(stat);
+
+
+		int newVersion = client.setData().withVersion(stat.getVersion()).forPath(path).getVersion();
+		System.out.println("Success set node for : " + path + ", new version: " + newVersion);
+
 		try {
-			client.setData().withVersion(stat.getVersion()).forPath(path);
+			client.setData().withVersion(stat.getVersion()).forPath(path); // old version
 		} catch (Exception e) {
 			System.out.println("Fail set node due to " + e.getMessage());
 		}
+
+
+		// We have to cache stat to finish a deletion?
+		client.delete().deletingChildrenIfNeeded()
+			.withVersion(newVersion).forPath(path);
 	}
 }

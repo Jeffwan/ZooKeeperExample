@@ -18,13 +18,15 @@ public class CreateNode {
 			.retryPolicy(retryPolicy)
 			.build();
 	
-	
 	public static void main(String[] args) throws Exception {
 		client.start();
-		
-		client.create()
-			.creatingParentsIfNeeded()
-			.withMode(CreateMode.EPHEMERAL)
-			.forPath(path, "init".getBytes());
+
+		String result = client.create()
+				.creatingParentsIfNeeded()
+				.withMode(CreateMode.EPHEMERAL)
+				.forPath(path, "init".getBytes());
+
+		// Path /zk-book/c1 is returned
+		System.out.println(result);
 	}
 }

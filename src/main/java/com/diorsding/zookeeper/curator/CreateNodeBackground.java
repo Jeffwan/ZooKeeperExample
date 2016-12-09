@@ -23,13 +23,16 @@ public class CreateNodeBackground {
 			.build();
 
 	static CountDownLatch semaphore = new CountDownLatch(2);
+
+	// Specify Executor in background.
 	static ExecutorService tp = Executors.newFixedThreadPool(2);
 	
 	public static void main(String[] args) throws Exception {
 		client.start();
 		
 		System.out.println("Main thread : " + Thread.currentThread().getName());
-		
+
+		// Thread of processResult: pool-3-thread-1
 		client.create().creatingParentsIfNeeded().withMode(CreateMode.EPHEMERAL).inBackground(new BackgroundCallback() {
 			public void processResult(CuratorFramework client, CuratorEvent event)
 					throws Exception {
@@ -39,7 +42,8 @@ public class CreateNodeBackground {
 				semaphore.countDown();
 			}
 		}, tp).forPath(path, "init".getBytes());
-		
+
+		// Thread of processResult: main-EventThread
 		client.create().creatingParentsIfNeeded().withMode(CreateMode.EPHEMERAL).inBackground(new BackgroundCallback() {
 			
 			public void processResult(CuratorFramework client, CuratorEvent event)
