@@ -51,9 +51,6 @@ public class ExistAPISync implements Watcher {
 					zookeeper.exists(event.getPath(), true);
 				}
 			}
-			
-			
-			
 		} catch (Exception e) {
 			// TODO: handle exception
 		}

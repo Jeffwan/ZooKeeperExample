@@ -29,10 +29,9 @@ public class GetDataAPISync implements Watcher{
 		zookeeper.create(path, "123".getBytes(), Ids.OPEN_ACL_UNSAFE, CreateMode.EPHEMERAL);
 		
 		System.out.println(new String(zookeeper.getData(path, true, stat)));
-		
 		System.out.println(stat.getCzxid() + " , " + stat.getMzxid() + " , " + stat.getVersion());
 		
-		zookeeper.setData(path, "123".getBytes(), -1);
+		zookeeper.setData(path, "132".getBytes(), stat.getVersion());
 		
 		Thread.sleep(Integer.MAX_VALUE);
 	}

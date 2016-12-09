@@ -27,7 +27,8 @@ public class SetDataAPIASync implements Watcher {
 		connectedSemaphore.await();
 		
 		zookeeper.create(path, "123".getBytes(), Ids.OPEN_ACL_UNSAFE, CreateMode.EPHEMERAL);
-		
+
+		// Object ctx is null. Whatever we pass, we can use it later in callback
 		zookeeper.setData(path, "456".getBytes(), -1, new IStatCallback(), null);
 		
 		Thread.sleep(Integer.MAX_VALUE);
@@ -46,6 +47,7 @@ public class SetDataAPIASync implements Watcher {
 class IStatCallback implements AsyncCallback.StatCallback {
 
 	public void processResult(int rc, String path, Object ctx, Stat stat) {
+		System.out.println(String.format("RC: %d, Path: %s, Object %s, Stat %s", rc, path, ctx, stat));
 		if (rc == 0) {
 			System.out.println("SUCCESS");
 		}

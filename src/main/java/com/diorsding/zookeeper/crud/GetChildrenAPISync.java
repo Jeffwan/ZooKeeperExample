@@ -19,11 +19,9 @@ public class GetChildrenAPISync implements Watcher {
 	
 	public static void main(String[] args) throws Exception {
 		String path = "/zk-book";
-		
 		zookeeper = new ZooKeeper(Constants.connectionString, Constants.timeout, new GetChildrenAPISync());
 
 		zookeeper.create(path, "".getBytes(), Ids.OPEN_ACL_UNSAFE, CreateMode.PERSISTENT);
-		
 		zookeeper.create(path + "/c1", "".getBytes(), Ids.OPEN_ACL_UNSAFE, CreateMode.EPHEMERAL);
 		
 		List<String> childrenList = zookeeper.getChildren(path, true);		

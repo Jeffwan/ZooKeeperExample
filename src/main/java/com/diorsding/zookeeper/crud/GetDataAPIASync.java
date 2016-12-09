@@ -20,17 +20,14 @@ public class GetDataAPIASync implements Watcher {
 	private static ZooKeeper zookeeper = null;
 	
 	public static void main(String[] args) throws Exception {
-		String path = "/zk-book"; 
-
+		String path = "/zk-book";
 		zookeeper = new ZooKeeper(Constants.connectionString, Constants.timeout, new GetDataAPIASync());
 		
 		connectedSemaphore.await();
 		
 		zookeeper.create(path, "123".getBytes(), Ids.OPEN_ACL_UNSAFE, CreateMode.EPHEMERAL);
-		
 		zookeeper.getData(path, true, new IDataCallback(), null);
-		
-		zookeeper.setData(path, "123".getBytes(), -1);
+		zookeeper.setData(path, "132".getBytes(), -1);
 		
 		Thread.sleep(Integer.MAX_VALUE);
 	}

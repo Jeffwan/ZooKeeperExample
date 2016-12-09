@@ -14,9 +14,10 @@ public class TestingClusterSample {
 		TestingZooKeeperServer leader = null;
 		
 		for (TestingZooKeeperServer zooKeeperServer : cluster.getServers()) {
-			System.out.println(zooKeeperServer.getInstanceSpec().getServerId() + "-");
-			System.out.println(zooKeeperServer.getQuorumPeer().getServerState() + "-");
-			System.out.println(zooKeeperServer.getInstanceSpec().getDataDirectory().getAbsolutePath());
+			System.out.print(zooKeeperServer.getInstanceSpec().getServerId() + "-");
+			System.out.print(zooKeeperServer.getQuorumPeer().getServerState() + "-");
+			System.out.print(zooKeeperServer.getInstanceSpec().getDataDirectory().getAbsolutePath());
+			System.out.println("");
 			
 			if (zooKeeperServer.getQuorumPeer().getServerState().equals("leading")) {
 				leader = zooKeeperServer;
@@ -28,9 +29,10 @@ public class TestingClusterSample {
 		System.out.println("-- After leader kill: ");
 		
 		for (TestingZooKeeperServer zooKeeperServer : cluster.getServers()) {
-			System.out.println(zooKeeperServer.getInstanceSpec().getServerId() + "-");
-			System.out.println(zooKeeperServer.getQuorumPeer().getServerState() + "-");
-			System.out.println(zooKeeperServer.getInstanceSpec().getDataDirectory().getAbsolutePath());
+			System.out.print(zooKeeperServer.getInstanceSpec().getServerId() + "-");
+			System.out.print(zooKeeperServer.getQuorumPeer().getServerState() + "-");
+			System.out.print(zooKeeperServer.getInstanceSpec().getDataDirectory().getAbsolutePath());
+			System.out.println("");
 		}
 		
 		cluster.stop();

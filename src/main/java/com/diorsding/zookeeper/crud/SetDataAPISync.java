@@ -27,9 +27,9 @@ public class SetDataAPISync implements Watcher {
 		connectedSemaphore.await();
 		
 		zookeeper.create(path, "123".getBytes(), Ids.OPEN_ACL_UNSAFE, CreateMode.EPHEMERAL);
-		
 		zookeeper.getData(path, true, null);
-		
+
+		// For initial update, both -1 and 0 work?
 		Stat stat = zookeeper.setData(path, "456".getBytes(), -1);
 		System.out.println(stat.getCzxid() + " , " + stat.getMzxid() + " , " + stat.getVersion());
 		

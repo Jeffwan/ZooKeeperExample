@@ -24,14 +24,11 @@ public class GetChildrenAPIASync implements Watcher {
 		String path = "/zk-book";
 		
 		zookeeper = new ZooKeeper(Constants.connectionString, Constants.timeout, new GetChildrenAPIASync());
-
 		connectedSemaphore.await();
+
 		zookeeper.create(path, "".getBytes(), Ids.OPEN_ACL_UNSAFE, CreateMode.PERSISTENT);
-		
 		zookeeper.create(path + "/c1", "".getBytes(), Ids.OPEN_ACL_UNSAFE, CreateMode.EPHEMERAL);
-		
-		zookeeper.getChildren(path, true, new IChildren2CallBack(), null);		
-		
+		zookeeper.getChildren(path, true, new IChildren2CallBack(), null);
 		zookeeper.create(path + "/c2", "".getBytes(), Ids.OPEN_ACL_UNSAFE, CreateMode.EPHEMERAL);
 		
 		Thread.sleep(Integer.MAX_VALUE);
