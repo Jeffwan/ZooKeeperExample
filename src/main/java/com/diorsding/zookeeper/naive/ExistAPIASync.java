@@ -1,4 +1,4 @@
-package com.diorsding.zookeeper.crud;
+package com.diorsding.zookeeper.naive;
 
 import org.apache.zookeeper.WatchedEvent;
 import org.apache.zookeeper.Watcher;
