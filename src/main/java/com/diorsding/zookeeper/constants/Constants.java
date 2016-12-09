@@ -2,7 +2,7 @@ package com.diorsding.zookeeper.constants;
 
 public class Constants {
 	
-	public static final String host = "10.0.0.99";
+	public static final String host = "localhost";
 	public static final long port = 2181;
 	public static final String connectionString = host + ":" +String.valueOf(port);
 	

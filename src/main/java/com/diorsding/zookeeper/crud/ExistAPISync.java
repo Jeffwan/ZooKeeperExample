@@ -1,6 +1,5 @@
-package com.diorsding.zookeeper;
+package com.diorsding.zookeeper.crud;
 
-import java.io.IOException;
 import java.util.concurrent.CountDownLatch;
 
 import org.apache.zookeeper.CreateMode;

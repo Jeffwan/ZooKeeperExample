@@ -1,4 +1,4 @@
-package com.diorsding.zookeeper;
+package com.diorsding.zookeeper.crud;
 
 import java.util.concurrent.CountDownLatch;
 
