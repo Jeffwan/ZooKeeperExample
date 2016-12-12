@@ -7,15 +7,15 @@ import org.apache.curator.utils.ZKPaths;
 import org.apache.curator.utils.ZKPaths.PathAndNode;
 import org.apache.zookeeper.ZooKeeper;
 
-import com.diorsding.zookeeper.constants.Constants;
+import com.diorsding.zookeeper.helper.ZookeeperClientHelper;
 
 public class ZkPaths {
 
 	static String path = "/curator_zkpath_sample";
 	static CuratorFramework client = CuratorFrameworkFactory.builder()
-			.connectString(Constants.connectionString)
-			.sessionTimeoutMs(Constants.timeout)
-			.retryPolicy(new ExponentialBackoffRetry(Constants.timeout, 3))
+			.connectString(ZookeeperClientHelper.connectionString)
+			.sessionTimeoutMs(ZookeeperClientHelper.timeout)
+			.retryPolicy(new ExponentialBackoffRetry(ZookeeperClientHelper.timeout, 3))
 			.build();
 	
 	public static void main(String[] args) throws Exception {

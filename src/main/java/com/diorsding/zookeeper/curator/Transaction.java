@@ -1,6 +1,6 @@
 package com.diorsding.zookeeper.curator;
 
-import com.diorsding.zookeeper.constants.Constants;
+import com.diorsding.zookeeper.helper.ZookeeperClientHelper;
 import org.apache.curator.RetryPolicy;
 import org.apache.curator.framework.CuratorFramework;
 import org.apache.curator.framework.CuratorFrameworkFactory;
@@ -9,7 +9,6 @@ import org.apache.curator.framework.api.transaction.CuratorTransactionFinal;
 import org.apache.curator.framework.api.transaction.CuratorTransactionResult;
 import org.apache.curator.retry.ExponentialBackoffRetry;
 import org.apache.zookeeper.CreateMode;
-import org.apache.zookeeper.Op;
 
 import java.util.Collection;
 
@@ -21,7 +20,7 @@ public class Transaction {
     public static void main(String[] args) throws Exception {
         RetryPolicy retryPolicy = new ExponentialBackoffRetry(3000, 3);
 
-        CuratorFramework client = CuratorFrameworkFactory.newClient(Constants.connectionString, retryPolicy);
+        CuratorFramework client = CuratorFrameworkFactory.newClient(ZookeeperClientHelper.connectionString, retryPolicy);
         client.start();
 
         // Option 1.

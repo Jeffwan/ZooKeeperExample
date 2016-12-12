@@ -1,14 +1,11 @@
 package com.diorsding.zookeeper.recipes;
 
-import javax.swing.text.AbstractDocument.BranchElement;
-
 import org.apache.curator.framework.CuratorFramework;
 import org.apache.curator.framework.CuratorFrameworkFactory;
-import org.apache.curator.framework.recipes.barriers.DistributedBarrier;
 import org.apache.curator.framework.recipes.barriers.DistributedDoubleBarrier;
 import org.apache.curator.retry.ExponentialBackoffRetry;
 
-import com.diorsding.zookeeper.constants.Constants;
+import com.diorsding.zookeeper.helper.ZookeeperClientHelper;
 
 public class Barrier2Sample {
 
@@ -21,9 +18,9 @@ public class Barrier2Sample {
 				public void run() {
 					try {
 						CuratorFramework client = CuratorFrameworkFactory.builder()
-								.connectString(Constants.connectionString)
-								.sessionTimeoutMs(Constants.timeout)
-								.retryPolicy(new ExponentialBackoffRetry(Constants.timeout, 3))
+								.connectString(ZookeeperClientHelper.connectionString)
+								.sessionTimeoutMs(ZookeeperClientHelper.timeout)
+								.retryPolicy(new ExponentialBackoffRetry(ZookeeperClientHelper.timeout, 3))
 								.build();
 						
 						DistributedDoubleBarrier barrier = new DistributedDoubleBarrier(client, barrierPath, 5);  

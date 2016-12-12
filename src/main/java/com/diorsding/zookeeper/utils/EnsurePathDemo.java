@@ -5,15 +5,15 @@ import org.apache.curator.framework.CuratorFrameworkFactory;
 import org.apache.curator.retry.ExponentialBackoffRetry;
 import org.apache.curator.utils.EnsurePath;
 
-import com.diorsding.zookeeper.constants.Constants;
+import com.diorsding.zookeeper.helper.ZookeeperClientHelper;
 
 public class EnsurePathDemo {
 
 	static String path = "/zk-book/c1";
 	static CuratorFramework client = CuratorFrameworkFactory.builder()
-			.connectString(Constants.connectionString)
-			.sessionTimeoutMs(Constants.timeout)
-			.retryPolicy(new ExponentialBackoffRetry(Constants.timeout, 3))
+			.connectString(ZookeeperClientHelper.connectionString)
+			.sessionTimeoutMs(ZookeeperClientHelper.timeout)
+			.retryPolicy(new ExponentialBackoffRetry(ZookeeperClientHelper.timeout, 3))
 			.build();
 	
 	

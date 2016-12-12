@@ -8,14 +8,14 @@ import org.apache.zookeeper.Watcher;
 import org.apache.zookeeper.ZooKeeper;
 import org.apache.zookeeper.Watcher.Event.KeeperState;
 
-import com.diorsding.zookeeper.constants.Constants;
+import com.diorsding.zookeeper.helper.ZookeeperClientHelper;
 
 public class ConnectionWatchWithSidPassWD implements Watcher {
 	
 	private static CountDownLatch connectedSemaphore = new CountDownLatch(1);
 	
 	public static void main(String[] args) throws IOException, InterruptedException {
-		ZooKeeper zookeeper = new ZooKeeper(Constants.connectionString, Constants.timeout, new ConnectionWatchWithSidPassWD());
+		ZooKeeper zookeeper = new ZooKeeper(ZookeeperClientHelper.connectionString, ZookeeperClientHelper.timeout, new ConnectionWatchWithSidPassWD());
 		connectedSemaphore.await();
 
 		// SessionId is only available after SyncConnected status. sessionId = 0 in connecting status.
@@ -24,11 +24,11 @@ public class ConnectionWatchWithSidPassWD implements Watcher {
 		System.out.println("SessionId: " + sessionId + " ,Passwd: " + passwd);
 		
 		// Use illegal sessionId and sessionPassWd - Expired
-		zookeeper = new ZooKeeper(Constants.connectionString, Constants.timeout, new ConnectionWatchWithSidPassWD(), 1l, "test".getBytes());
+		zookeeper = new ZooKeeper(ZookeeperClientHelper.connectionString, ZookeeperClientHelper.timeout, new ConnectionWatchWithSidPassWD(), 1l, "test".getBytes());
 	
 		// Use correct sessionId and sessionPassWd - firstly Disconnected and then SyncConnected.
 		// Why here repeatedly show disconnected and syncConnected.
-		zookeeper = new ZooKeeper(Constants.connectionString, Constants.timeout, new ConnectionWatchWithSidPassWD(), sessionId, passwd);
+		zookeeper = new ZooKeeper(ZookeeperClientHelper.connectionString, ZookeeperClientHelper.timeout, new ConnectionWatchWithSidPassWD(), sessionId, passwd);
 		
 		Thread.sleep(Integer.MAX_VALUE);
 	}	

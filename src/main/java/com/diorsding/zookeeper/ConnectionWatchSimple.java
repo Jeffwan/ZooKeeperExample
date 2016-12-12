@@ -7,14 +7,14 @@ import org.apache.zookeeper.Watcher;
 import org.apache.zookeeper.ZooKeeper;
 import org.apache.zookeeper.Watcher.Event.KeeperState;
 
-import com.diorsding.zookeeper.constants.Constants;
+import com.diorsding.zookeeper.helper.ZookeeperClientHelper;
 
 public class ConnectionWatchSimple implements Watcher {
 	
 	private static CountDownLatch connectedSemaphore = new CountDownLatch(1);
 	
 	public static void main(String[] args) throws Exception {
-		ZooKeeper zookeeper = new ZooKeeper(Constants.connectionString, Constants.timeout, new ConnectionWatchSimple());
+		ZooKeeper zookeeper = new ZooKeeper(ZookeeperClientHelper.connectionString, ZookeeperClientHelper.timeout, new ConnectionWatchSimple());
 		System.out.println(zookeeper.getState());  // CONNECTING
 		
 		try {

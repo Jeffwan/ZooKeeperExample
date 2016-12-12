@@ -5,7 +5,7 @@ import org.apache.curator.framework.CuratorFrameworkFactory;
 import org.apache.curator.framework.recipes.barriers.DistributedBarrier;
 import org.apache.curator.retry.ExponentialBackoffRetry;
 
-import com.diorsding.zookeeper.constants.Constants;
+import com.diorsding.zookeeper.helper.ZookeeperClientHelper;
 
 public class BarrierSample {
 	
@@ -19,9 +19,9 @@ public class BarrierSample {
 				public void run() {
 					try {
 						CuratorFramework client = CuratorFrameworkFactory.builder()
-								.connectString(Constants.connectionString)
-								.sessionTimeoutMs(Constants.timeout)
-								.retryPolicy(new ExponentialBackoffRetry(Constants.timeout, 3))
+								.connectString(ZookeeperClientHelper.connectionString)
+								.sessionTimeoutMs(ZookeeperClientHelper.timeout)
+								.retryPolicy(new ExponentialBackoffRetry(ZookeeperClientHelper.timeout, 3))
 								.build();
 						
 						client.start();
@@ -39,5 +39,5 @@ public class BarrierSample {
 		Thread.sleep(2000);
 		barrier.removeBarrier();
 	}
-	
+
 }

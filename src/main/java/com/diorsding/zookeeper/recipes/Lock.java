@@ -9,15 +9,15 @@ import org.apache.curator.framework.CuratorFrameworkFactory;
 import org.apache.curator.framework.recipes.locks.InterProcessMutex;
 import org.apache.curator.retry.ExponentialBackoffRetry;
 
-import com.diorsding.zookeeper.constants.Constants;
+import com.diorsding.zookeeper.helper.ZookeeperClientHelper;
 
 public class Lock {
 	
 	static String lockPath = "/curator_recipes_lock_path";
 	static CuratorFramework client = CuratorFrameworkFactory.builder()
-			.connectString(Constants.connectionString)
-			.sessionTimeoutMs(Constants.timeout)
-			.retryPolicy(new ExponentialBackoffRetry(Constants.timeout, 3))
+			.connectString(ZookeeperClientHelper.connectionString)
+			.sessionTimeoutMs(ZookeeperClientHelper.timeout)
+			.retryPolicy(new ExponentialBackoffRetry(ZookeeperClientHelper.timeout, 3))
 			.build();
 	
 	public static void main(String[] args) {
