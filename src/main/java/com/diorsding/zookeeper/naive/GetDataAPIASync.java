@@ -12,7 +12,7 @@ import org.apache.zookeeper.Watcher.Event.KeeperState;
 import org.apache.zookeeper.ZooDefs.Ids;
 import org.apache.zookeeper.data.Stat;
 
-import com.diorsding.zookeeper.constants.Constants;
+import com.diorsding.zookeeper.helper.ZookeeperClientHelper;
 
 public class GetDataAPIASync implements Watcher {
 
@@ -21,7 +21,7 @@ public class GetDataAPIASync implements Watcher {
 	
 	public static void main(String[] args) throws Exception {
 		String path = "/zk-book";
-		zookeeper = new ZooKeeper(Constants.connectionString, Constants.timeout, new GetDataAPIASync());
+		zookeeper = new ZooKeeper(ZookeeperClientHelper.connectionString, ZookeeperClientHelper.timeout, new GetDataAPIASync());
 		
 		connectedSemaphore.await();
 		

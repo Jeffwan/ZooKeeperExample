@@ -11,7 +11,7 @@ import org.apache.zookeeper.Watcher.Event.EventType;
 import org.apache.zookeeper.Watcher.Event.KeeperState;
 import org.apache.zookeeper.ZooDefs.Ids;
 
-import com.diorsding.zookeeper.constants.Constants;
+import com.diorsding.zookeeper.helper.ZookeeperClientHelper;
 
 public class GetChildrenAPISync implements Watcher {
 	private static CountDownLatch connectedSemaphore = new CountDownLatch(1);
@@ -19,7 +19,7 @@ public class GetChildrenAPISync implements Watcher {
 	
 	public static void main(String[] args) throws Exception {
 		String path = "/zk-book";
-		zookeeper = new ZooKeeper(Constants.connectionString, Constants.timeout, new GetChildrenAPISync());
+		zookeeper = new ZooKeeper(ZookeeperClientHelper.connectionString, ZookeeperClientHelper.timeout, new GetChildrenAPISync());
 
 		zookeeper.create(path, "".getBytes(), Ids.OPEN_ACL_UNSAFE, CreateMode.PERSISTENT);
 		zookeeper.create(path + "/c1", "".getBytes(), Ids.OPEN_ACL_UNSAFE, CreateMode.EPHEMERAL);
