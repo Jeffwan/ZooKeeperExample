@@ -5,13 +5,13 @@ import java.util.List;
 import org.I0Itec.zkclient.IZkChildListener;
 import org.I0Itec.zkclient.ZkClient;
 
-import com.diorsding.zookeeper.constants.Constants;
+import com.diorsding.zookeeper.helper.ZookeeperClientHelper;
 
 public class GetChildren {
 
 	public static void main(String[] args) throws Exception {
 		String path = "/zk-book";
-		ZkClient zkClient = new ZkClient(Constants.connectionString, Constants.timeout);
+		ZkClient zkClient = new ZkClient(ZookeeperClientHelper.connectionString, ZookeeperClientHelper.timeout);
 		
 		zkClient.subscribeChildChanges(path, new IZkChildListener() {
 			

@@ -3,14 +3,14 @@ package com.diorsding.zookeeper.zkClient;
 import org.I0Itec.zkclient.IZkDataListener;
 import org.I0Itec.zkclient.ZkClient;
 
-import com.diorsding.zookeeper.constants.Constants;
+import com.diorsding.zookeeper.helper.ZookeeperClientHelper;
 
 public class GetData {
 
 	public static void main(String[] args) throws Exception {
 		String path = "/zk-book";
 		
-		ZkClient zkClient = new ZkClient(Constants.connectionString, Constants.timeout);
+		ZkClient zkClient = new ZkClient(ZookeeperClientHelper.connectionString, ZookeeperClientHelper.timeout);
 		zkClient.createEphemeral(path, "123");
 		
 		zkClient.subscribeDataChanges(path, new IZkDataListener() {
